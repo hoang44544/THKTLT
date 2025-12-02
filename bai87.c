@@ -33,7 +33,7 @@ int countNeighbors(int grid[ROWS][COLS], int x, int y) {
     int count = 0;
     for (int i = -1; i <= 1; i++) {
         for (int j = -1; j <= 1; j++) {
-            if (i == 0 && j == 0) continue; // Skip the cell itself
+            if (i == 0 && j == 0) continue;
             int newX = x + i;
             int newY = y + j;
             if (newX >= 0 && newX < ROWS && newY >= 0 && newY < COLS) {
@@ -48,18 +48,18 @@ void nextGeneration(int grid[ROWS][COLS], int newGrid[ROWS][COLS]) {
         for (int j = 0; j < COLS; j++) {
             int neighbors = countNeighbors(grid, i, j);
             if (grid[i][j] == 1) {
-                // Cell is alive
+                //tbao con song
                 if (neighbors < 2 || neighbors > 3) {
-                    newGrid[i][j] = 0; // Cell dies
+                    newGrid[i][j] = 0;
                 } else {
-                    newGrid[i][j] = 1; // Cell lives
+                    newGrid[i][j] = 1;
                 }
             } else {
                 // Cell is dead
                 if (neighbors == 3) {
-                    newGrid[i][j] = 1; // Cell becomes alive
+                    newGrid[i][j] = 1;
                 } else {
-                    newGrid[i][j] = 0; // Cell remains dead
+                    newGrid[i][j] = 0;
                 }
             }
         }
@@ -83,7 +83,6 @@ int main() {
         nextGeneration(grid, newGrid);
         printf("Generation %d:\n", gen + 1);
         printGrid(newGrid);
-        // Copy newGrid to grid for the next generation
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 grid[i][j] = newGrid[i][j];
@@ -93,3 +92,4 @@ int main() {
 
     return 0;
 }
+
