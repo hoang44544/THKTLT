@@ -1,29 +1,39 @@
 #include <stdio.h>
-#include <math.h>
-// Bài 46. Số hoàn hảo là số nguyên dương bằng tổng các ước thực sự của nó và không kể 
-// chính nó. Ví dụ: 6=1+2+3. Viết chương trình có sử dụng hàm kiểm tra n (nhập từ bàn 
-// phím) có phải số hoàn hảo không ?
-int main(){
-    int n, sum = 0;
-    printf("Nhap mot so nguyen duong n: ");
-    scanf("%d", &n);
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-    if (n <= 0) {
-        printf("Vui long nhap so nguyen duong.\n");
+int is_valid_int(const char *s, int *value) {
+    char *end;
+    long num = strtol(s, &end, 10);
+    if (*end != '\0') return 0;
+    if (num < -2147483648LL || num > 2147483647LL) return 0;
+    *value = (int)num;
+    return 1;
+}
+
+int la_hoan_hao(int n) {
+    if (n <= 0) return 0;
+    int sum = 0;
+    for (int i = 1; i <= n/2; i++) {
+        if (n % i == 0) sum += i;
+    }
+    return (sum == n);
+}
+
+int main() {
+    char input[100];
+    int n;
+    printf("Nhap so nguyen duong n: ");
+    scanf("%s", input);
+    // kiểm tra số nguyên
+    if (!is_valid_int(input, &n) || n <= 0) {
+        printf("Input khong hop le. Yeu cau nhap so nguyen duong.\n");
         return 1;
     }
-
-    for (int i = 1; i <= n / 2; i++) {
-        if (n % i == 0) {
-            sum += i;
-        }
-    }
-
-    if (sum == n) {
+    if (la_hoan_hao(n))
         printf("%d la so hoan hao.\n", n);
-    } else {
-        printf("%d khong phai la so hoan hao.\n", n);
-    }
-
+    else
+        printf("%d khong phai so hoan hao.\n", n);
     return 0;
 }
